@@ -18,7 +18,9 @@ public class Animale {
     private long id;
     private String name;
     @ManyToOne
-    //@Column(name="fk_persona")
+    @JoinColumn(name="fk_persona") //non posso usare @Column ma devo usare @JoinColumn
     private Persona fk_persona;
+    @OneToOne(mappedBy = "animale" )
+    private Libretto libretto;
 
 }//end class

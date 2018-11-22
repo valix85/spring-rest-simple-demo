@@ -19,7 +19,7 @@ public class Persona {
     private long id;
     private String nome;
     private int anno_di_nascita;
-    @OneToMany(mappedBy = "fk_persona")
+    @OneToMany(mappedBy = "fk_persona") //mapped by non crea la colonna sul db
     private List<Animale> animali = new ArrayList<>();
 
 }//end class
