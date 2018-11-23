@@ -57,7 +57,7 @@ public class MovieServiceImpl implements MovieService {
         }
     }
 
-
+    //Necessario avere almeno il titolo del film per metterlo in memoria
     private boolean isValidMovie(Movie movie){
         return (movie.getTitle() != null && movie.getTitle().length()>0);
     }
