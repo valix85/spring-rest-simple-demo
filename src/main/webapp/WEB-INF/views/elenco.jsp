@@ -9,16 +9,44 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Movie List</title>
-    <link href="/res/css/style.css" type="text/css" rel="stylesheet" />
+
+
+
+
+    <%@ include file="parts/css.jsp" %>
+
 </head>
 <body>
+<div class="container">
 
-    <h1><c:out value="${titolo}" /></h1>
-    <ul>
-        <c:forEach var="film" items="${films}">
-            <li><c:out value="${film.title}" /></li>
-        </c:forEach>
-    </ul>
+<h1><c:out value="${titolo}"/></h1>
 
+<table class="table">
+    <thead>
+    <tr>
+        <th scope="col">mID</th>
+        <th scope="col">Title</th>
+        <th scope="col">Director</th>
+        <th scope="col">Year</th>
+    </tr>
+    </thead>
+    <tbody>
+    <c:forEach var="film" items="${films}">
+    <tr>
+        <th scope="row">${film.MID}</th>
+        <td><c:out value="${film.title}"/></td>
+        <td><c:out value="${film.director}"/></td>
+        <td><c:out value="${film.year}"/></td>
+    </tr>
+    </c:forEach>
+    </tbody>
+</table>
+
+</div> <!-- chiusura container -->
+
+
+<%@ include file="parts/footer.jsp" %>
+
+<%@ include file="parts/footerjs.jsp" %>
 </body>
 </html>
