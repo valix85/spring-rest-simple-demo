@@ -23,6 +23,7 @@
     <hr>
 
     <div>Fare un link a una pagina che carichi tutti i film in una tabella HTML</div>
+    <a href="/site/elenco-film">ELENCO FILM</a>
 
 
 
