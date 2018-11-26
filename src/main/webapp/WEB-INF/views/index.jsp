@@ -9,7 +9,7 @@
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Movie Index</title>
-    <link href="/res/css/style.css" type="text/css" rel="stylesheet" />
+    <%@ include file="parts/css.jsp" %>
 </head>
 <body>
     <h1><c:out value="${titolo}" /></h1>
@@ -42,6 +42,11 @@
     </c:forEach>
     </ol>
 
+
+
+    <%@ include file="parts/footer.jsp" %>
+
+    <%@ include file="parts/footerjs.jsp" %>
 
 </body>
 </html>
