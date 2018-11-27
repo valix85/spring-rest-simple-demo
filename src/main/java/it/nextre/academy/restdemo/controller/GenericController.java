@@ -25,4 +25,15 @@ public class GenericController {
         return "index";
     }
 
+
+    /*
+     * o definisco qui la rotta, ma essendo statica posso metterla come configurazione di MvcConfig
+     */
+    /*
+    @GetMapping("/login")
+    public String getLoginPage(){
+        return "login";
+    }
+    */
+
 }//end class
