@@ -9,8 +9,13 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
 import org.springframework.security.core.session.SessionRegistryImpl;
+import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
 @Configuration
 @EnableWebSecurity
@@ -55,10 +60,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
 
     //definisco il metodo di crittografia della password
+
     @Bean
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
+
+    /*
+    //FUNZIONA v1
     @Override
     protected void configure(final AuthenticationManagerBuilder auth) throws Exception{
         //usato per collegarsi a un provider che offre controllo col DB
@@ -76,9 +85,18 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .roles("USER", "ADMIN")
 
         ;
-
     }
+    */
 
+    @Bean
+    @Override
+    protected UserDetailsService userDetailsService() {
+        //PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
+        User.UserBuilder userBuilder = User.builder().passwordEncoder(passwordEncoder()::encode);
+        UserDetails user = userBuilder.username("user").password("user").roles("USER").build();
+        UserDetails admin = userBuilder.username("admin").password("admin").roles("USER","ADMIN").build();
+        return new InMemoryUserDetailsManager(admin,user);
+    }
 
 
     /*
