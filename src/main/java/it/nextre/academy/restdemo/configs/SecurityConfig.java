@@ -88,9 +88,12 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
     }
     */
 
+
+    /*Versione v2 per usare gli utenti in memoria*/
     @Bean
     @Override
     protected UserDetailsService userDetailsService() {
+        //Evitabile se ho definito il bean del password encoder
         //PasswordEncoder encoder = PasswordEncoderFactories.createDelegatingPasswordEncoder();
         User.UserBuilder userBuilder = User.builder().passwordEncoder(passwordEncoder()::encode);
         UserDetails user = userBuilder.username("user").password("user").roles("USER").build();
