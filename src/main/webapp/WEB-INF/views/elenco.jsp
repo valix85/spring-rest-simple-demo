@@ -23,6 +23,19 @@
 
 <h1><c:out value="${titolo}"/></h1>
 
+    <sec:authorize access="hasRole('ROLE_ADMIN') || hasRole('ROLE_RUOLO2')">
+    <div class="row mt-4">
+        <div class="col text-right">
+            <a class="btn btn-primary" href="/site/movie/add"><i class="fas fa-plus-square"></i> ADD</a>
+        </div>
+    </div>
+    </sec:authorize>
+
+
+
+
+    <div class="row mt-3">
+    <div class="col ">
 
 <table class="table">
     <thead>
@@ -44,6 +57,8 @@
     </c:forEach>
     </tbody>
 </table>
+    </div>
+    </div>
 
 </div> <!-- chiusura container -->
 

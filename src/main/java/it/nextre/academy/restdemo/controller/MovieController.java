@@ -3,6 +3,7 @@ package it.nextre.academy.restdemo.controller;
 import it.nextre.academy.restdemo.entity.Movie;
 import it.nextre.academy.restdemo.service.MovieService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,11 +17,11 @@ public class MovieController {
     @Autowired
     MovieService movieService;
 
-    @GetMapping("/site/elenco-film")
+    @GetMapping("/site/movie")
     public String getElencoFilm(Model model){
         List<Movie> movies = movieService.getAll();
         model.addAttribute("films", movies);
-        model.addAttribute("titolo", "Elenco film");
+        model.addAttribute("titolo", "Catalogo film");
         return "elenco";
     }
 
@@ -40,7 +41,7 @@ public class MovieController {
 
 
 
-
+    @PreAuthorize("hasRole('ROLE_ADMIN')")
     @GetMapping("/site/movie/add")
     public ModelAndView getAddMovie(){
         ModelAndView mav = new ModelAndView("add_movie");
