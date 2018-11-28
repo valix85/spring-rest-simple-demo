@@ -12,6 +12,7 @@
     <%@ include file="parts/css.jsp" %>
 </head>
 <body>
+<%@ include file="parts/navbar.jsp" %>
     <div class="container">
 
         <div class="row">

@@ -12,6 +12,9 @@
     <%@ include file="parts/css.jsp" %>
 </head>
 <body>
+<%@ include file="parts/navbar.jsp" %>
+
+<div class="container">
     <h1><c:out value="${titolo}" /></h1>
     <%-- <h1>${titolo}</h1> --%>
 
@@ -42,6 +45,10 @@
     </c:forEach>
     </ol>
 
+
+
+
+</div><!-- container -->
 
 
     <%@ include file="parts/footer.jsp" %>

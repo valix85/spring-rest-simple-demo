@@ -18,10 +18,11 @@
 
 </head>
 <body>
+<%@ include file="parts/navbar.jsp" %>
 <div class="container">
 
 <h1><c:out value="${titolo}"/></h1>
-    <h2>Username: <sec:authentication property="principal.username" /></h2>
+
 
 <table class="table">
     <thead>
