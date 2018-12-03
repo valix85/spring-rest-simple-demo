@@ -52,6 +52,7 @@
                     <div class="form-group row">
                         <div class="offset-4 col-8">
                             <button name="submit" type="submit" class="btn btn-success" id="btn-save">LOG-IN</button>
+                            <a class="btn btn-warning" href="/registration">REGISTER</a>
                         </div>
                     </div>
                 </form>

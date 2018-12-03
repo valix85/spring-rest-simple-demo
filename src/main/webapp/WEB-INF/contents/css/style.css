@@ -47,3 +47,8 @@ a:hover{
     text-decoration: none;
 }
 
+a.btn {color:white;}
+a.btn:hover,
+a.btn:active {
+    color:white;
+}

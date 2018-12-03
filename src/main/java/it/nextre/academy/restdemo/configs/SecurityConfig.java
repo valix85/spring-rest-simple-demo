@@ -1,11 +1,15 @@
 package it.nextre.academy.restdemo.configs;
 
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.dao.DaoAuthenticationProvider;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.builders.WebSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.session.SessionRegistry;
@@ -18,17 +22,44 @@ import org.springframework.security.crypto.factory.PasswordEncoderFactories;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 
+import javax.sql.DataSource;
+
 @Configuration
 @EnableWebSecurity
 @EnableGlobalMethodSecurity(prePostEnabled = true)
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+
+    @Value("${spring.queries.users-query}")
+    private String usersQuery;
+
+    @Value("${spring.queries.roles-query}")
+    private String rolesQuery;
+
+    @Autowired
+    private PasswordEncoder bCryptPasswordEncoder;
+
+    @Autowired
+    private DataSource dataSource;
+
+    //utile per bypassare la security sulle risorse statiche
+    /*
+    @Override
+    public void configure(WebSecurity web) throws Exception {
+        web
+                .ignoring()
+                .antMatchers("/res/**", "/static/**", "/contents/css/**", "/contents/js/**", "/contents/img/**");
+    }
+    */
+
+
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http
                 .csrf().disable()//non terrà traccia dello stato
                 .authorizeRequests()
-                .antMatchers("/res/**","/","/index","/home","/login")
+                .antMatchers("/res/**","/","/index","/home","/login","/registration")
                 .permitAll()
                 .anyRequest()
                 .authenticated()
@@ -92,6 +123,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
 
     /*Versione v2 per usare gli utenti in memoria*/
+    /*
     @Bean
     @Override
     protected UserDetailsService userDetailsService() {
@@ -102,6 +134,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         UserDetails admin = userBuilder.username("admin").password("admin").roles("USER","ADMIN").build();
         return new InMemoryUserDetailsManager(admin,user);
     }
+    */
+
+
+
+
+    //Verisone v3 utenti sul db
+    @Override
+    protected void configure(AuthenticationManagerBuilder auth)
+            throws Exception {
+        auth.
+                jdbcAuthentication()
+                .usersByUsernameQuery(usersQuery)
+                .authoritiesByUsernameQuery(rolesQuery)
+                .dataSource(dataSource)
+                .passwordEncoder(bCryptPasswordEncoder);
+    }
+
 
 
     /*
